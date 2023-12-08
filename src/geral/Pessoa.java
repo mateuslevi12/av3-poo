@@ -1,6 +1,8 @@
 package geral;
 
-public class Pessoa {
+import interfaces.GerenciamentoItens;
+
+public abstract class Pessoa implements GerenciamentoItens{
     private String nome;
     private String idade;
     private String email;
@@ -49,7 +51,9 @@ public class Pessoa {
     public String toString() {
         return "  Seu nome=" + nome + ", sua idade=" + idade + ", seu email=" + email + ", seu numeroDeTelefone="
                 + numeroDeTelefone;
-    };
+    }
+
+
 
     
     

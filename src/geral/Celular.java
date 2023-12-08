@@ -1,11 +1,16 @@
 package geral;
 
+// import excecao.ProdutoIndisponivelException;
+
 public class Celular extends Produto {
     private String modelo;
     private String sistemaOperacional;
     private int armazenamento;
     private double tamanhoTela;
-    
+    // private int quantidadeEmEstoque;
+
+    // Construtor, getters e setters para quantidadeEmEstoque e outros atributos
+
     public Celular(String nome, double preco, String marca, String descricao, String modelo, String sistemaOperacional, int armazenamento, double tamanhoTela) {
         super(nome, preco, marca, descricao);
         this.modelo = modelo;
@@ -14,6 +19,7 @@ public class Celular extends Produto {
         this.tamanhoTela = tamanhoTela;
     }
 
+    
     public String getModelo() {
         return modelo;
     }
