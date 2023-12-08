@@ -11,7 +11,7 @@ public class Estoque implements GerenciamentoItens {
         private int quantidadeEstoque;
 
     public Estoque(List<Produto> itensEstoque, int quantidadeEstoque) {
-            this.itensEstoque = itensEstoque;
+            this.itensEstoque =  new ArrayList<>();
             this.quantidadeEstoque = quantidadeEstoque;
         }
 

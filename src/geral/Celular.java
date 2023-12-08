@@ -53,7 +53,7 @@ public class Celular extends Produto {
 
     @Override
     public String mostrarDetalhesProduto() {
-        return "Notebook [modelo=" + modelo + ", armazenamento=" + armazenamento + ", sistema operacional=" + sistema operacional
+        return "Notebook [modelo=" + modelo + ", armazenamento=" + armazenamento + ", sistema operacional=" + sistemaOperacional
         + ", tamanhoTela=" + tamanhoTela + "]";
     }
 

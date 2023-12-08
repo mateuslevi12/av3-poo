@@ -1,3 +1,4 @@
+package excecao;
 
 public class EstoqueException extends RuntimeException{
     private static final long serialVersionUID = 1L;
