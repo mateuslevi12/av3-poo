@@ -1,17 +1,13 @@
 package geral;
 
-import java.util.List;
-
-import excecao.EstoqueException;
-
 public class Cliente extends Pessoa{
-     private List<Produto> itensCarrinho;
+    private Carrinho carrinho = new Carrinho();
     private double saldo;
 
-    public Cliente(String nome, String idade, String email, int numeroDeTelefone, List<Produto> itensCarrinho,
+    public Cliente(String nome, String idade, String email, int numeroDeTelefone,
             double saldo) {
         super(nome, idade, email, numeroDeTelefone);
-        this.itensCarrinho = itensCarrinho;
+       
         this.saldo = saldo;
     }
 
@@ -21,32 +17,16 @@ public class Cliente extends Pessoa{
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
-    }
+    } 
 
     @Override
     public String toString() {
         return "Cliente: " + getNome() + "saldo= " + saldo;
     }
 
-    @Override
-    public void adicionarItem(Produto produto) {
-        itensCarrinho.add(produto);
-        System.out.println("Produto adicionado ao carrinho: " + produto.getNome());
+    public Carrinho getCarrinho() {
+        return carrinho;
     }
 
-    @Override
-    public void removerItem(Produto produto) {
-        itensCarrinho.remove(produto);
-        System.out.println("Produto removido do carrinho: " + produto.getNome());
-    }
-
-    public void mostrarCarrinho() {
-        if (itensCarrinho.isEmpty()) {
-            throw new EstoqueException("Carrinho está vazio");
-        }
-        System.out.println(itensCarrinho);
-    }
-
-    
     
 }

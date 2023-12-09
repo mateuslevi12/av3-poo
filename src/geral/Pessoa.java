@@ -1,12 +1,11 @@
 package geral;
 
-import interfaces.GerenciamentoItens;
 
-public abstract class Pessoa implements GerenciamentoItens{
-    private String nome;
-    private String idade;
-    private String email;
-    private int numeroDeTelefone;
+public abstract class Pessoa {
+    protected String nome;
+    protected String idade;
+    protected String email;
+    protected int numeroDeTelefone;
 
     public Pessoa(String nome, String idade, String email, int numeroDeTelefone) {
         this.nome = nome;
@@ -53,8 +52,4 @@ public abstract class Pessoa implements GerenciamentoItens{
                 + numeroDeTelefone;
     }
 
-
-
-    
-    
 }

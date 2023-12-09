@@ -1,12 +1,10 @@
 package geral;
 
-import interfaces.MostrarDetalhesProduto;
-
-public abstract class Produto implements MostrarDetalhesProduto{
-    private String nome;
-    private double preco;
-    private String marca;
-    private String descricao;
+public abstract class Produto {
+    protected String nome;
+    protected double preco;
+    protected String marca;
+    protected String descricao;
 
     public Produto(String nome, double preco, String marca, String descricao) {
         this.nome = nome;

@@ -51,12 +51,6 @@ public class Notebook extends Produto {
         return "Notebook";
     }
 
-    @Override
-    public String mostrarDetalhesProduto() {
-       return "Notebook [processador=" + processador + ", ram=" + ram + ", armazenamento=" + armazenamento
-                + ", sistemaOperacional=" + sistemaOperacional + "]";
-    }
-
     
     
 }

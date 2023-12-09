@@ -1,7 +1,5 @@
 package geral;
 
-// import excecao.ProdutoIndisponivelException;
-
 public class Celular extends Produto {
     private String modelo;
     private String sistemaOperacional;
@@ -18,8 +16,7 @@ public class Celular extends Produto {
         this.armazenamento = armazenamento;
         this.tamanhoTela = tamanhoTela;
     }
-
-    
+ 
     public String getModelo() {
         return modelo;
     }
@@ -57,11 +54,9 @@ public class Celular extends Produto {
         return "Celular";
     }
 
-    @Override
-    public String mostrarDetalhesProduto() {
-        return "Notebook [modelo=" + modelo + ", armazenamento=" + armazenamento + ", sistema operacional=" + sistemaOperacional
-        + ", tamanhoTela=" + tamanhoTela + "]";
-    }
 
+
+
+ 
     
 }

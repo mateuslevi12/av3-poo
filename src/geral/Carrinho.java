@@ -7,12 +7,13 @@ import excecao.EstoqueException;
 import interfaces.GerenciamentoItens;
 
 public class Carrinho implements GerenciamentoItens {
-        private List<Produto> itensCarrinho;
-        private int quantidadeCarrinho;
+    private List<Produto> itensCarrinho;
+    private int quantidadeCarrinho;
+    
     public Carrinho() {
         this.itensCarrinho = new ArrayList<>();
     }
-
+    
     @Override
     public void adicionarItem(Produto produto) {
         itensCarrinho.add(produto);
@@ -31,5 +32,7 @@ public class Carrinho implements GerenciamentoItens {
         }
         System.out.println(itensCarrinho);
     }
+
+
 }
 

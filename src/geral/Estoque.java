@@ -7,13 +7,10 @@ import excecao.EstoqueException;
 import interfaces.GerenciamentoItens;
 
 public class Estoque implements GerenciamentoItens {
-        private List<Produto> itensEstoque;
-        private int quantidadeEstoque;
+        private List<Produto> itensEstoque =  new ArrayList<>();;
+        
 
-    public Estoque(List<Produto> itensEstoque, int quantidadeEstoque) {
-            this.itensEstoque =  new ArrayList<>();
-            this.quantidadeEstoque = quantidadeEstoque;
-        }
+    public Estoque() {}
 
         
     @Override
@@ -28,9 +25,8 @@ public class Estoque implements GerenciamentoItens {
         System.out.println("Produto removido do Estoque: " + produto.getNome());
     }
 
-
     public void mostrarEstoque() {
-        if (quantidadeEstoque <= 0) {
+        if (itensEstoque.isEmpty()) {
             throw new EstoqueException("Estoque esta vazio");
         }
         System.out.println(itensEstoque);

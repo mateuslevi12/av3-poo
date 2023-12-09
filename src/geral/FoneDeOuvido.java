@@ -51,12 +51,5 @@ public class FoneDeOuvido extends Produto{
         return "FoneDeOuvido ";
     }
 
-    @Override
-    public String mostrarDetalhesProduto() {
-        return "FoneDeOuvido [tipoConexao=" + tipoConexao + ", tipoFone=" + tipoFone + ", microfone=" + microfone
-                + ", cor=" + cor + "]";
-    }
-
-    
     
 }
