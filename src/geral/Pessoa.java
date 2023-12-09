@@ -3,11 +3,11 @@ package geral;
 
 public abstract class Pessoa {
     protected String nome;
-    protected String idade;
+    protected int idade;
     protected String email;
     protected int numeroDeTelefone;
 
-    public Pessoa(String nome, String idade, String email, int numeroDeTelefone) {
+    public Pessoa(String nome, int idade, String email, int numeroDeTelefone) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;

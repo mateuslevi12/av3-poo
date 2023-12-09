@@ -1,54 +1,16 @@
 package geral;
 
 public class Celular extends Produto {
-    private String modelo;
-    private String sistemaOperacional;
-    private int armazenamento;
-    private double tamanhoTela;
+
     // private int quantidadeEmEstoque;
 
     // Construtor, getters e setters para quantidadeEmEstoque e outros atributos
 
-    public Celular(String nome, double preco, String marca, String descricao, String modelo, String sistemaOperacional, int armazenamento, double tamanhoTela) {
-        super(nome, preco, marca, descricao);
-        this.modelo = modelo;
-        this.sistemaOperacional = sistemaOperacional;
-        this.armazenamento = armazenamento;
-        this.tamanhoTela = tamanhoTela;
+    public Celular(String nome, double preco, String marca) {
+        super(nome, preco = 2000, marca);
+       
     }
  
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getSistemaOperacional() {
-        return sistemaOperacional;
-    }
-
-    public void setSistemaOperacional(String sistemaOperacional) {
-        this.sistemaOperacional = sistemaOperacional;
-    }
-
-    public int getArmazenamento() {
-        return armazenamento;
-    }
-
-    public void setArmazenamento(int armazenamento) {
-        this.armazenamento = armazenamento;
-    }
-
-    public double getTamanhoTela() {
-        return tamanhoTela;
-    }
-
-    public void setTamanhoTela(double tamanhoTela) {
-        this.tamanhoTela = tamanhoTela;
-    }
-
     @Override
     public String toString() {
         return "Celular";

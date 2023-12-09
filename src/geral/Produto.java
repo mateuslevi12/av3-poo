@@ -4,13 +4,11 @@ public abstract class Produto {
     protected String nome;
     protected double preco;
     protected String marca;
-    protected String descricao;
 
-    public Produto(String nome, double preco, String marca, String descricao) {
+    public Produto(String nome, double preco, String marca) {
         this.nome = nome;
         this.preco = preco;
         this.marca = marca;
-        this.descricao = descricao;
     }
 
     public String getNome() {
@@ -37,17 +35,10 @@ public abstract class Produto {
         this.marca = marca;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     @Override
     public String toString() {
-        return "Produto [nome=" + nome + ", preco=" + preco + ", marca=" + marca + ", descricao=" + descricao + "]";
+        return "Produto [nome=" + nome + ", preco=" + preco + ", marca=" + marca + "]";
     }    
     
 }
