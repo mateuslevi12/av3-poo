@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class Cartao extends Pagamento {
     
-    public Cartao(double valor, LocalDate data) {
-        super(valor * 1.2, data);
+    public Cartao(double valor) {
+        super(valor * 1.2);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class Celular extends Produto {
     // Construtor, getters e setters para quantidadeEmEstoque e outros atributos
 
     public Celular(String nome, double preco, String marca) {
-        super(nome, preco = 2000, marca);
+        super(nome, preco, marca);
        
     }
  

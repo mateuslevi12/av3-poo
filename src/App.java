@@ -1,66 +1,193 @@
 import java.util.Scanner;
 
-import excecao.ProdutoIndisponivelException;
+import excecao.SaldoInsuficienteException;
+import geral.Cartao;
+// import excecao.ProdutoIndisponivelException;
 import geral.Celular;
 import geral.Cliente;
+import geral.EscritaNotaFiscal;
 import geral.Estoque;
 import geral.FoneDeOuvido;
-import geral.Gerente;
+// import geral.FoneDeOuvido;
+// import geral.Gerente;
+// import geral.Notebook;
+// import geral.Produto;
+import geral.LeituraEstoque;
 import geral.Notebook;
-import geral.Produto;
+import geral.Pagamento;
+import geral.Pix;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         Estoque estoque = new Estoque();
+        
+        String name = "C:\\Users\\mateu\\Downloads\\(1)programas\\estoque.txt";
+        LeituraEstoque leitura = new LeituraEstoque();
+        leitura.efeituarLeritura(name);
+        estoque.setItensEstoque(leitura.getItensEstoque());
+        // boolean parar;
+
         double valorC = 2000;
-        double valorN = 4000;
+        double valorN = 4000;                                        
         double valorF = 400;
         System.out.println("Seja bem vindo a MV imports!");
         System.out.println("Cliente = 1/ Gerente = 2 ?");
-        int cargo = sc.nextInt();
+        int opcao = sc.nextInt();
 
-        if (cargo == 1) {
-            System.out.println("Digite seu nome: ");
-            String nomeCliente = sc.next();
+        if (opcao == 1) {
+            System.out.println("------Seja bem vido a MV IMPORTS------");
+            System.out.println("Digite seu nome:");
+            String nome = sc.next();
             sc.nextLine();
-            System.out.println("Digite seu email: ");
-            String email = sc.nextLine();
             System.out.println("Digite sua idade: ");
             int idade = sc.nextInt();
-            System.out.println("Digite seu numero de telefone: ");
-            int numero = sc.nextInt();
-            System.out.println("Digite seu saldo disponivel para compras: ");
-            int saldo = sc.nextInt();
+            System.out.println("Digite seu email: ");
+            String email = sc.next();
             sc.nextLine();
-            Cliente cliente = new Cliente(nomeCliente, idade, email, numero, saldo);
-            System.out.println("Produtos disponiveis: ");
-            // estoque.mostrarEstoque();
-            System.out.println("Selecione o produto que deseja adicionar");
-            System.out.println("1 - Celular - 2000,00(preço fixo)");
-            System.out.println("2 - Notebook - 4000,00(preço fixo)");
-            System.out.println("3 - Fone - 400,00(preço fixo)");
+            System.out.println("Digite seu numero de telefone:  ");
+            int numero = sc.nextInt();
+            System.out.println("Digite seu saldo disponivel: ");
+            int saldo = sc.nextInt();
+            Cliente cliente = new Cliente(nome, idade, email, numero, saldo);
+            System.out.println("Esse são os itens disponiveis da nossa loja: ");
+            estoque.mostrarEstoque();
+            System.out.println("Voce deseja adicionar algum desses itens ao carrinho? (S/N)");
+            char caractere = sc.next().charAt(0);
 
-            int numeroProduto = sc.nextInt();
-                while(numeroProduto > 0 && numeroProduto <3)
-                if(numeroProduto == 1){
-                    System.out.print("Digite o nome do celular: ");
-                    String nome = sc.nextLine();
+            while (caractere == 'S' || caractere == 's') {
+                System.out.println("Selecione o produto que deseja adicionar");
+                System.out.println("1 - Celular");
+                System.out.println("2 - Notebook");
+                System.out.println("3 - Fone De Ouvido");
+                int escolha = sc.nextInt();
+
+                if (escolha == 1){
+                    System.out.println("Digite o nome do celular");
+                    String nomeProd = sc.next();
                     sc.nextLine();
-                    System.out.print("Digite a marca do celular: ");
-                    String marca = sc.nextLine();
-                    System.out.println();
-                    Celular celular = new Celular(nome, valorC, marca);
+                    System.out.println("Digite a marca do celular");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    Celular celular =  new Celular(nomeProd, valorC, marca);
                     cliente.getCarrinho().adicionarItem(celular);
-                    cliente.getCarrinho().mostrarCarrinho();
-            } else if(numeroProduto == 2){
+                } 
                 
-            }  else if(numeroProduto == 3){
-               
-            } else {
-                System.out.println("ERRO");
+                else if (escolha == 2){
+                    System.out.println("Digite o nome do notebook");
+                    String nomeProd = sc.next();
+                    sc.nextLine();
+                    System.out.println("Digite a marca do notebook");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    Notebook notebook =  new Notebook(nomeProd,valorN, marca);
+                    cliente.getCarrinho().adicionarItem(notebook);
+                } 
+                
+                else if (escolha == 3){
+                    System.out.println("Digite o nome do fone");
+                    String nomeProd = sc.next();
+                    sc.nextLine();
+                    System.out.println("Digite a marca do fone");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    FoneDeOuvido fone =  new FoneDeOuvido(nomeProd,valorF, marca);
+                    cliente.getCarrinho().adicionarItem(fone);
+                }
+                System.out.println("Deseja adicionar outro item ? (S/N)");
+                caractere = sc.next().charAt(0);
             }
-             }
+            cliente.getCarrinho().mostrarCarrinho();
+            
+            System.out.println("Selecione a forma de pagamento");
+            System.out.println("1 - Cartão de Credito");
+            System.out.println("2 - PIX");
+            int escolha = sc.nextInt();
+            if (escolha == 1) {
+                Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho());
+                // double valorFinal = cliente.getCarrinho().getValorCarrinho();
+               
+                cartao.solicitarPagamento();
+                System.out.print("Insira sua senha: ");
+                int senha = sc.nextInt();
+                cartao.efetuarPagamento();
+                System.out.println("Nota fiscal emitida com sucesso!!!");
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho());
+                String fileNameOut = "notaFiscal.txt";
+
+                escrita.efetuaEscrita(fileNameOut);
+
+            } else if (escolha == 2) {
+                Pix pix = new Pix(valorF);
+                pix.solicitarPagamento();
+                Thread.sleep(3000);
+                pix.efetuarPagamento();
+                System.out.println("Nota fiscal emitida com sucesso!!!");
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho());
+                String fileNameOut = "notaFiscal.txt";
+
+                escrita.efetuaEscrita(fileNameOut);
+            }
+        }
+        // estoque.adicionarItem(new Celular("name", valorC, "name2"));
+        // estoque.mostrarEstoque();
+
+        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
+        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
+        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
+        // cliente.getCarrinho().adicionarItem(new Notebook("name", valorC, "name2"));
+        // cliente.getCarrinho().mostrarCarrinho();
+
+        // EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho());
+        // String fileNameOut = "notaFiscal.txt";
+
+        // escrita.efetuaEscrita(fileNameOut);
+        // int cargo = sc.nextInt();
+
+        // // if (cargo == 1) {
+        //     System.out.println("Digite seu nome: ");
+        //     String nomeCliente = sc.next();
+        //     sc.nextLine();
+        //     System.out.println("Digite seu email: ");
+        //     String email = sc.nextLine();
+        //     System.out.println("Digite sua idade: ");
+        //     int idade = sc.nextInt();
+        //     System.out.println("Digite seu numero de telefone: ");
+        //     int numero = sc.nextInt();
+        //     System.out.println("Digite seu saldo disponivel para compras: ");
+        //     int saldo = sc.nextInt();
+        //     sc.nextLine();
+        //     Cliente cliente = new Cliente(nomeCliente, idade, email, numero, saldo);
+        //     System.out.println("Produtos disponiveis: ");
+        //     estoque.mostrarEstoque();
+        //     System.out.println("Selecione o produto que deseja adicionar");
+        //     System.out.println("1 - Celular - 2000,00(preço fixo)");
+        //     System.out.println("2 - Notebook - 4000,00(preço fixo)");
+        //     System.out.println("3 - Fone - 400,00(preço fixo)");
+
+        //     int numeroProduto = sc.nextInt();
+        //         while(numeroProduto > 0 && numeroProduto <3)
+        //         if(numeroProduto == 1){
+        //             System.out.print("Digite o nome do celular: ");
+        //             String nome = sc.nextLine();
+        //             sc.nextLine();
+        //             System.out.print("Digite a marca do celular: ");
+        //             String marca = sc.nextLine();
+        //             System.out.println();
+        //             Celular celular = new Celular(nome, valorC, marca);
+        //             cliente.getCarrinho().adicionarItem(celular);
+        //             cliente.getCarrinho().mostrarCarrinho();
+        //     } else if(numeroProduto == 2){
+                
+        //     }  else if(numeroProduto == 3){
+               
+        //     } else {
+        //         System.out.println("ERRO");
+        //     }
+            //  }
         // // ADICIONAR //
         // if (cargo == 2) {
         //     Gerente gerente = new Gerente("Victor", "dezoito", "vriosdantas@gmail.com", 99854776, 180305);

@@ -15,6 +15,11 @@ public class Carrinho implements GerenciamentoItens {
         this.itensCarrinho = new ArrayList<>();
     }
     
+    
+    public List<Produto> getItensCarrinho() {
+        return itensCarrinho;
+    }
+
     @Override
     public void adicionarItem(Produto produto) {
         quantidadeCarrinho++;
@@ -29,18 +34,22 @@ public class Carrinho implements GerenciamentoItens {
         itensCarrinho.remove(produto);
         System.out.println("Produto removido do carrinho: " + produto.getNome());
     }
-
+    
     public void mostrarCarrinho() {
         if (quantidadeCarrinho <= 0 ) {
             throw new EstoqueException("Carrinho esta vazio");
         }
+        System.out.println("CARRINHO");
         for (Produto produto : itensCarrinho) {
             System.out.println(produto); // Isso imprimirá cada produto em uma linha separada
         }
         
         System.out.println("valor total: " + valorCarrinho );
     }
-
+    
+    public double getValorCarrinho() {
+        return valorCarrinho;
+    }
 
 }
 

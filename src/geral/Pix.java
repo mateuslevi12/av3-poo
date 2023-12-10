@@ -4,10 +4,10 @@ import java.time.LocalDate;
 
 public class Pix extends Pagamento{
 
-    public Pix(double valor, LocalDate data) {
-        super(valor * 0.8, data);
+    public Pix(double valor) {
+        super(valor * 0.8);
     }
-
+ 
     @Override
     public void solicitarPagamento() {
         System.out.println("Chave pix: 123456789");

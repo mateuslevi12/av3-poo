@@ -35,7 +35,6 @@ public abstract class Produto {
         this.marca = marca;
     }
 
-
     @Override
     public String toString() {
         return "Produto [nome=" + nome + ", preco=" + preco + ", marca=" + marca + "]";

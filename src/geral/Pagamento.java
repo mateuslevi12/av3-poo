@@ -7,9 +7,8 @@ public abstract class Pagamento {
     protected LocalDate data;
     protected StatusPagamento statusPagamento;
 
-    public Pagamento(double valor, LocalDate data) {
+    public Pagamento(double valor) {
         this.valor = valor;
-        this.data = data;
         this.statusPagamento = StatusPagamento.PENDENTE;
     }
 

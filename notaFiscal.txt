@@ -1,0 +1,5 @@
+--------NOTA FISCAL--------
+
+--------PRODUTOS--------
+item: Celular | valor: 2000.00
+
