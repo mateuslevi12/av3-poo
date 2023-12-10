@@ -3,6 +3,7 @@ package geral;
 import java.util.ArrayList;
 import java.util.List;
 
+import classesAbstratas.Produto;
 import excecao.EstoqueException;
 import interfaces.GerenciamentoItens;
 
@@ -32,18 +33,16 @@ public class Estoque implements GerenciamentoItens {
     }
 
     public void mostrarEstoque() {
-        System.out.println("ESTOQUE");
-        for (Produto produto : itensEstoque) {
-            System.out.println(produto); // Isso imprimirá cada produto em uma linha separada
-        }
-        if (itensEstoque.isEmpty()) {
-            System.out.println("Estoque esta vazio");
+        try {
+            if (!itensEstoque.isEmpty()) {
+                System.out.println("ESTOQUE");
+                for (Produto produto : itensEstoque) {
+                    System.out.println(produto + ":" + produto.getNome());
+                }
+            } 
+        } catch (EstoqueException e) {
+            System.out.println("Estoque vazio");
         }
     }
-
-
-
-
-
 }
 

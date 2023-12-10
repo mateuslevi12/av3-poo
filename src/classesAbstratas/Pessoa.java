@@ -1,4 +1,4 @@
-package geral;
+package classesAbstratas;
 
 
 public abstract class Pessoa {
@@ -22,11 +22,11 @@ public abstract class Pessoa {
         this.nome = nome;
     }
 
-    public String getIdade() {
+    public int getIdade() {
         return idade;
     }
 
-    public void setIdade(String idade) {
+    public void setIdade(int idade) {
         this.idade = idade;
     }
 

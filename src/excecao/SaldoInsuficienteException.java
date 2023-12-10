@@ -7,8 +7,4 @@ public class SaldoInsuficienteException extends RuntimeException{
         super(message);
     }
 
-    @Override
-    public String toString() {
-        return "SaldoInsuficienteException []";
-    }
 }

@@ -1,14 +1,18 @@
 package geral;
 
+import classesAbstratas.Produto;
+
 public class Celular extends Produto {
 
-    // private int quantidadeEmEstoque;
+    private double memoria;
 
-    // Construtor, getters e setters para quantidadeEmEstoque e outros atributos
+    public double getMemoria() {
+        return memoria;
+    }
 
-    public Celular(String nome, double preco, String marca) {
+    public Celular(String nome, double preco, String marca, double memoria) {
         super(nome, preco, marca);
-       
+        this.memoria = memoria;
     }
  
     @Override
@@ -16,9 +20,4 @@ public class Celular extends Produto {
         return "Celular";
     }
 
-
-
-
- 
-    
 }

@@ -1,14 +1,22 @@
 package geral;
 
-public class FoneDeOuvido extends Produto{
+import classesAbstratas.Produto;
 
-    public FoneDeOuvido(String nome, double preco, String marca) {
+public class FoneDeOuvido extends Produto{
+    private String tipo;
+
+    public FoneDeOuvido(String nome, double preco, String marca, String tipo) {
         super(nome, preco, marca);
+        this.tipo = tipo;
     }
 
     @Override
     public String toString() {
         return "FoneDeOuvido";
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     

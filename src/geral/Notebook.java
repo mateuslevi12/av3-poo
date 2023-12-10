@@ -1,10 +1,18 @@
 package geral;
 
+import classesAbstratas.Produto;
+
 public class Notebook extends Produto {
+
+    private double tela;
   
-    public Notebook(String nome, double preco, String marca) {
+    public double getTela() {
+        return tela;
+    }
+
+    public Notebook(String nome, double preco, String marca,  double tela) {
         super(nome, preco, marca);
-       
+        this.tela = tela;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package geral;
 
-import java.time.LocalDate;
+import classesAbstratas.Pagamento;
 
 public class Pix extends Pagamento{
 

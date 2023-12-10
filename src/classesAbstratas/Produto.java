@@ -1,4 +1,4 @@
-package geral;
+package classesAbstratas;
 
 public abstract class Produto {
     protected String nome;

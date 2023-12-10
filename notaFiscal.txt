@@ -1,5 +1,8 @@
 --------NOTA FISCAL--------
 
---------PRODUTOS--------
-item: Celular | valor: 2000.00
+NOME DO CLIENTE :mateus
+EMAIL DO CLIENTE :aaa
 
+--------PRODUTOS--------
+item:iphone12 | valor: 2000.00
+valor final: 2000.0

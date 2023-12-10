@@ -1,6 +1,8 @@
-package geral;
+package classesAbstratas;
 
 import java.time.LocalDate;
+
+import geral.StatusPagamento;
 
 public abstract class Pagamento {
     protected double valor;
