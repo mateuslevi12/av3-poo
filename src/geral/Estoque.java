@@ -2,9 +2,9 @@ package geral;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import classesAbstratas.Produto;
 import excecao.EstoqueException;
+import excecao.ProdutoIndisponivelException;
 import interfaces.GerenciamentoItens;
 
 public class Estoque implements GerenciamentoItens {
@@ -33,7 +33,7 @@ public class Estoque implements GerenciamentoItens {
                 Produto produtoRemovido = itensEstoque.remove(index);
                 System.out.println("Produto removido do estoque: " + produtoRemovido.getNome());
             } else {
-                System.out.println("Índice inválido para remover o item do carrinho.");
+                throw new ProdutoIndisponivelException("Produto não encontrado");
             }
         } catch (EstoqueException e) {
             if (itensEstoque.isEmpty()) {
@@ -41,7 +41,7 @@ public class Estoque implements GerenciamentoItens {
             }
         }
     }
-    public void mostrarEstoque() {
+    public void mostrarEstoque() throws EstoqueException {
         try {
             if (!itensEstoque.isEmpty()) {
                 System.out.println("ESTOQUE");
@@ -50,7 +50,7 @@ public class Estoque implements GerenciamentoItens {
                 }
             } 
         } catch (EstoqueException e) {
-            System.out.println("Estoque vazio");
+            System.out.println("Estoque " + e.getMessage());
         }
     }
 

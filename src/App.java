@@ -132,7 +132,7 @@ public class App {
                     }
                     System.out.print("Insira sua senha: ");
                     int senha = sc.nextInt();
-                    Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho(), senha);
+                    Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho(), senha, cliente);
                     cartao.solicitarPagamento();
                     Thread.sleep(3000);
                     cartao.efetuarPagamento();
@@ -143,11 +143,7 @@ public class App {
                     escrita.efetuaEscrita(fileNameOut);
 
                 } else if (escolha == 2) {
-                    if (saldo < cliente.getCarrinho().getValorCarrinho()) {
-                        sc.close();
-                        throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
-                    }
-                    Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho());
+                    Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho(), cliente);
                     pix.solicitarPagamento();
                     Thread.sleep(3000);
                     pix.efetuarPagamento();

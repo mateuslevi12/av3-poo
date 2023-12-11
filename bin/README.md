@@ -18,13 +18,7 @@
 
 [2/3] • Pelo menos 3 interfaces; (1,0 ponto) - interfaceFuncionarios e interfaceProdutos (so duas)
 
+[X] • Sinalização em pelo menos 3 métodos que podem disparar exceção (utilização do throws); (1,0 ponto) - Utilizar no app
 
-
-
-
-
-
-[ ] • Sinalização em pelo menos 3 métodos que podem disparar exceção (utilização do throws); (1,0 ponto) - Utilizar no app
-
-[ ] • Tratamento de exceção em pelo menos 5 classes; (0,5 ponto) (so duas)
+[2/5] • Tratamento de exceção em pelo menos 5 classes; (0,5 ponto) (so duas)
 

@@ -1,18 +1,24 @@
 package geral;
 
 import classesAbstratas.Pagamento;
+import excecao.SaldoInsuficienteException;
 
 public class Cartao extends Pagamento {
     private int senha;
+    private Cliente cliente;
 
-    public Cartao(double valor, int senha) {
+    public Cartao(double valor, int senha, Cliente cliente) {
         super(valor * 1.2);
         this.senha = senha;
+        this.cliente = cliente;
     }
 
     @Override
-    public void solicitarPagamento() {
-       System.out.println("Valor a pagar: " + valor);
+    public void solicitarPagamento() throws SaldoInsuficienteException{
+        if (cliente.getSaldo() < valor) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
+        }
+        System.out.println("Valor a pagar: " + valor);
     }
 
     @Override
@@ -26,5 +32,4 @@ public class Cartao extends Pagamento {
         return "Cartao [senha=" + senha + "]";
     }
 
-    
 }

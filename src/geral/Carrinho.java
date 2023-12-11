@@ -5,6 +5,7 @@ import java.util.List;
 
 import classesAbstratas.Produto;
 import excecao.EstoqueException;
+import excecao.ProdutoIndisponivelException;
 import interfaces.GerenciamentoItens;
 
 public class Carrinho implements GerenciamentoItens {
@@ -38,7 +39,7 @@ public class Carrinho implements GerenciamentoItens {
                 valorCarrinho -= produtoRemovido.getPreco();
                 System.out.println("Produto removido do carrinho: " + produtoRemovido.getNome());
             } else {
-                System.out.println("Índice inválido para remover o item do carrinho.");
+                throw new ProdutoIndisponivelException("Produto não encontrado");
             }
         } catch (EstoqueException e) {
             if (itensCarrinho.isEmpty()) {
@@ -47,7 +48,7 @@ public class Carrinho implements GerenciamentoItens {
         }
     }
     
-    public void mostrarCarrinho() {
+    public void mostrarCarrinho() throws EstoqueException {
         try {
             System.out.println("----SEU CARRINHO----");
             for (Produto produto : itensCarrinho) {

@@ -1,6 +1,5 @@
 package classesAbstratas;
 
-//  nao posso instanciar um pagamento
 import geral.StatusPagamento;
 
 public abstract class Pagamento {
