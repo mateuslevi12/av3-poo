@@ -19,5 +19,11 @@ public class Pix extends Pagamento{
         System.out.println("Pagamento efetuado");
         statusPagamento = StatusPagamento.APROVADO;
     }
+
+    @Override
+    public String toString() {
+        return "Pix";
+    }
+    
     
 }

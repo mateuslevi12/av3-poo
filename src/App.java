@@ -34,8 +34,10 @@ public class App {
         int opcao = sc.nextInt();
 
         if (opcao == 1) {
+            System.out.println("--------------------------------------");
             System.out.println("------Seja bem vido a MV IMPORTS------");
-            System.out.print("Digite seu nome:");
+            System.out.println("--------------------------------------");
+            System.out.print("Digite seu nome: ");
             String nome = sc.next();
             sc.nextLine();
             System.out.print("Digite sua idade: ");
@@ -48,12 +50,18 @@ public class App {
             System.out.print("Digite seu saldo disponivel: ");
             int saldo = sc.nextInt();
             Cliente cliente = new Cliente(nome, idade, email, numero, saldo);
-            System.out.println("Esse são os itens disponiveis da nossa loja: ");
+            System.out.println("");
+            System.out.println("----Esse são os itens disponiveis da nossa loja:-----");
+            System.out.println("");
             estoque.mostrarEstoque();
-            System.out.print("Deseja adicionar um item ? \n (1 - Sim /2 - Nao /3 - Remover)");
+            System.out.println("");
+            System.out.println("Deseja adicionar um item ?\n(1 - Sim /2 - Nao /3 - Remover)");
+            System.out.print("Digite a operação desejada: ");
             int Escolha = sc.nextInt();
+            System.out.println("");
 
             while (Escolha == 1) {
+                System.out.println("----ADIÇÃO DE ITENS----");
                 System.out.println("Selecione o produto que deseja adicionar");
                 System.out.println("1 - Celular");
                 System.out.println("2 - Notebook");
@@ -61,10 +69,10 @@ public class App {
                 int escolha = sc.nextInt();
 
                 if (escolha == 1) {
-                    System.out.print("Digite o nome do celular");
+                    System.out.print("Digite o nome do celular: ");
                     String nomeProd = sc.next();
                     sc.nextLine();
-                    System.out.print("Digite a marca do celular");
+                    System.out.print("Digite a marca do celular: ");
                     String marca = sc.next();
                     sc.nextLine();
                     Celular celular = new Celular(nomeProd, valorC, marca, memoria);
@@ -72,10 +80,10 @@ public class App {
                 }
 
                 else if (escolha == 2) {
-                    System.out.print("Digite o nome do notebook");
+                    System.out.print("Digite o nome do notebook: ");
                     String nomeProd = sc.next();
                     sc.nextLine();
-                    System.out.print("Digite a marca do notebook");
+                    System.out.print("Digite a marca do notebook: ");
                     String marca = sc.next();
                     sc.nextLine();
                     Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
@@ -83,21 +91,34 @@ public class App {
                 }
 
                 else if (escolha == 3) {
-                    System.out.print("Digite o nome do fone");
+                    System.out.print("Digite o nome do fone: ");
                     String nomeProd = sc.next();
                     sc.nextLine();
-                    System.out.print("Digite a marca do fone");
+                    System.out.print("Digite a marca do fone: ");
                     String marca = sc.next();
                     sc.nextLine();
                     FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
                     cliente.getCarrinho().adicionarItem(fone);
                 }
-                System.out.print("Deseja adicionar outro item ? \n (1 - Sim /2 - Nao /3 - Remover)");
+                System.out.println("Deseja adicionar outro item ? \n (1 - Sim /2 - Nao /3 - Remover)");
+                System.out.print("Digite a operação desejada: ");
+                Escolha = sc.nextInt();
+            }
+
+            while (Escolha == 3) {
+                System.out.println("-------------REMOÇÃO DE ITEM-------------");
+                System.out.println("");
+                cliente.getCarrinho().mostrarCarrinho();
+                System.out.println("Escolha o numero do produto a ser removido");
+                int index = sc.nextInt();
+                cliente.getCarrinho().removerItem(index);
+                cliente.getCarrinho().mostrarCarrinho();
+                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
                 Escolha = sc.nextInt();
             }
 
             if (Escolha == 2) {
-                
+                System.out.println("----PAGAMENTO----");
                 cliente.getCarrinho().mostrarCarrinho();
 
                 System.out.println("Selecione a forma de pagamento");
@@ -105,12 +126,15 @@ public class App {
                 System.out.println("2 - PIX");
                 int escolha = sc.nextInt();
                 if (escolha == 1) {
-                    Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho());
-                    // double valorFinal = cliente.getCarrinho().getValorCarrinho();
-
-                    cartao.solicitarPagamento();
+                    if (saldo < cliente.getCarrinho().getValorCarrinho()) {
+                        sc.close();
+                        throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
+                    }
                     System.out.print("Insira sua senha: ");
                     int senha = sc.nextInt();
+                    Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho(), senha);
+                    cartao.solicitarPagamento();
+                    Thread.sleep(3000);
                     cartao.efetuarPagamento();
                     System.out.println("Nota fiscal emitida com sucesso!!!");
                     EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
@@ -119,11 +143,11 @@ public class App {
                     escrita.efetuaEscrita(fileNameOut);
 
                 } else if (escolha == 2) {
-                    Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho());
                     if (saldo < cliente.getCarrinho().getValorCarrinho()) {
                         sc.close();
                         throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
                     }
+                    Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho());
                     pix.solicitarPagamento();
                     Thread.sleep(3000);
                     pix.efetuarPagamento();
@@ -133,196 +157,84 @@ public class App {
 
                     escrita.efetuaEscrita(fileNameOut);
                 }
-            } else if (Escolha == 3) {
-                cliente.getCarrinho().removerItem();
             }
+        } else if (opcao == 2) {
+            System.out.println("-------------------------------------------------------------------");
+            System.out.println("------Seja bem vido ao gerenciamento do estoque da MV IMPORTS------");
+            System.out.println("-------------------------------------------------------------------");
+            estoque.mostrarEstoque();
+            System.out.println("O que deseja fazer no estoque?");
+            System.out.println("1 - Adicionar item");
+            System.out.println("2 - Remover item");
+            System.out.println("");
+            System.out.println("Selecione a opção: ");
+            int escolhendo = sc.nextInt();
+
+            while (escolhendo == 1) {
+                System.out.println("------ADIÇÃO DE ITENS AO ESTOQUE------");
+                System.out.println("");
+                System.out.println("Qual dos itens abaixo quer adicionar?");
+                System.out.println("1 - Celular");
+                System.out.println("2 - Notebook");
+                System.out.println("3 - Fone De Ouvido");
+                System.out.println("");
+                System.out.println("Selecione a opção: ");
+                int escolhaProd = sc.nextInt();
+
+                if (escolhaProd == 1) {
+                    System.out.print("Digite o nome do celular: ");
+                    String nomeProd = sc.next();
+                    sc.nextLine();
+                    System.out.print("Digite a marca do celular: ");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    Celular celular = new Celular(nomeProd, valorC, marca, memoria);
+                    estoque.adicionarItem(celular);
+                }
+
+                else if (escolhaProd == 2) {
+                    System.out.print("Digite o nome do notebook: ");
+                    String nomeProd = sc.next();
+                    sc.nextLine();
+                    System.out.print("Digite a marca do notebook: ");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
+                    estoque.adicionarItem(notebook);
+                }
+
+                else if (escolhaProd == 3) {
+                    System.out.print("Digite o nome do fone: ");
+                    String nomeProd = sc.next();
+                    sc.nextLine();
+                    System.out.print("Digite a marca do fone: ");
+                    String marca = sc.next();
+                    sc.nextLine();
+                    FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
+                    estoque.adicionarItem(fone);
+                }
+                estoque.mostrarEstoque();
+
+                System.out.println("Deseja adicionar outro item ?\n(1 - Sim /2 - Remover)");
+                System.out.print("Digite a operação desejada: ");
+                escolhendo = sc.nextInt();
+            }
+            while (escolhendo == 2) {
+                System.out.println("------REMOÇÃO DE ITENS DO ESTOQUE------");
+                System.out.println("");
+                estoque.mostrarEstoque();
+                System.out.println("");
+                System.out.println("Escolha o numero do produto a ser removido");
+                int index = sc.nextInt();
+                estoque.removerItem(index);
+                estoque.mostrarEstoque();
+                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
+                escolhendo = sc.nextInt();
+
+            }
+            
 
         }
-        // estoque.adicionarItem(new Celular("name", valorC, "name2"));
-        // estoque.mostrarEstoque();
-
-        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
-        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
-        // cliente.getCarrinho().adicionarItem(new Celular("name", valorC, "name2"));
-        // cliente.getCarrinho().adicionarItem(new Notebook("name", valorC, "name2"));
-        // cliente.getCarrinho().mostrarCarrinho();
-
-        // EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho());
-        // String fileNameOut = "notaFiscal.txt";
-
-        // escrita.efetuaEscrita(fileNameOut);
-        // int cargo = sc.nextInt();
-
-        // // if (cargo == 1) {
-        // System.out.println("Digite seu nome: ");
-        // String nomeCliente = sc.next();
-        // sc.nextLine();
-        // System.out.println("Digite seu email: ");
-        // String email = sc.nextLine();
-        // System.out.println("Digite sua idade: ");
-        // int idade = sc.nextInt();
-        // System.out.println("Digite seu numero de telefone: ");
-        // int numero = sc.nextInt();
-        // System.out.println("Digite seu saldo disponivel para compras: ");
-        // int saldo = sc.nextInt();
-        // sc.nextLine();
-        // Cliente cliente = new Cliente(nomeCliente, idade, email, numero, saldo);
-        // System.out.println("Produtos disponiveis: ");
-        // estoque.mostrarEstoque();
-        // System.out.println("Selecione o produto que deseja adicionar");
-        // System.out.println("1 - Celular - 2000,00(preço fixo)");
-        // System.out.println("2 - Notebook - 4000,00(preço fixo)");
-        // System.out.println("3 - Fone - 400,00(preço fixo)");
-
-        // int numeroProduto = sc.nextInt();
-        // while(numeroProduto > 0 && numeroProduto <3)
-        // if(numeroProduto == 1){
-        // System.out.print("Digite o nome do celular: ");
-        // String nome = sc.nextLine();
-        // sc.nextLine();
-        // System.out.print("Digite a marca do celular: ");
-        // String marca = sc.nextLine();
-        // System.out.println();
-        // Celular celular = new Celular(nome, valorC, marca);
-        // cliente.getCarrinho().adicionarItem(celular);
-        // cliente.getCarrinho().mostrarCarrinho();
-        // } else if(numeroProduto == 2){
-
-        // } else if(numeroProduto == 3){
-
-        // } else {
-        // System.out.println("ERRO");
-        // }
-        // }
-        // // ADICIONAR //
-        // if (cargo == 2) {
-        // Gerente gerente = new Gerente("Victor", "dezoito", "vriosdantas@gmail.com",
-        // 99854776, 180305);
-        // System.out.println("---------GERENCIAMENTO DE ESTOQUE---------");
-        // System.out.println("Qual produto vc deseja adicionar?");
-        // System.out.println("1 - Celular");
-        // System.out.println("2 - Notebook");
-        // System.out.println("3 - Fone");
-        // System.out.println("x > 3 || x < 1 = ERRO");
-        // int numeroProduto = sc.nextInt();
-        // if(numeroProduto == 1){
-        // Produto celular = new Celular("celular", 2000.00, "Apple", "Celular de ultima
-        // geração", "iphone 15", "IOS 17", 560, 15.60);
-        // estoque.adicionarItem(celular);
-        // System.out.println("Celular adicionado com sucesso!");
-        // } else if(numeroProduto == 2){
-        // Produto notebook = new Notebook("Notebook", 4560.00, "Dell", "Descrição",
-        // "Ryzen 7", 16, 1, "Linux");
-        // estoque.adicionarItem(notebook);
-        // System.out.println("Notebook adicionado com sucesso!");
-        // } else if(numeroProduto == 3){
-        // Produto fone = new FoneDeOuvido("Fone", 60.00, "Xiaomi","Fone sem fio
-        // xiaomi", "Bluetooth", "Sem fio", true, "Branco");
-        // estoque.adicionarItem(fone);
-        // System.out.println("Fone adicionado com sucesso!");
-        // } else {
-        // System.out.println("ERRO");
-        // }
-        // System.out.println("Estoque atual");
-        // estoque.mostrarEstoque();
-
-        // } else if(cargo == 1){
-        // System.out.println("Digite seu saldo");
-        // double saldo = sc.nextDouble();
-        // Cliente cliente = new Cliente("Victor", "dezoito", "vriosdantas@gmail.com",
-        // 99854776 ,saldo);
-        // System.out.println("---------COMPRAS NA LOJA---------");
-        // System.out.println("Qual produto vc deseja adicionar no carrinho?");
-        // System.out.println("1 - Celular");
-        // System.out.println("2 - Notebook");
-        // System.out.println("3 - Fone");
-        // System.out.println("x > 3 || x < 1 = ERRO");
-
-        // int numeroProduto = sc.nextInt();
-        // if(numeroProduto == 1){
-        // Produto celular = new Celular("celular", 2000.00, "Apple", "Celular de ultima
-        // geração", "iphone 15", "IOS 17", 560, 15.60);
-        // cliente.getCarrinho().adicionarItem(celular);
-        // System.out.println("Celular adicionado com sucesso!");
-        // } else if(numeroProduto == 2){
-        // Produto notebook = new Notebook("Notebook", 4560.00, "Dell", "Descrição",
-        // "Ryzen 7", 16, 1, "Linux");
-        // cliente.getCarrinho().adicionarItem(notebook);
-        // System.out.println("Notebook adicionado com sucesso!");
-        // } else if(numeroProduto == 3){
-        // Produto fone = new FoneDeOuvido("Fone", 60.00, "Xiaomi","Fone sem fio
-        // xiaomi", "Bluetooth", "Sem fio", true, "Branco");
-        // cliente.getCarrinho().adicionarItem(fone);
-        // System.out.println("Fone adicionado com sucesso!");
-        // } else {
-        // System.out.println("ERRO");
-        // }
-
-        // }
-
-        // // REMOVER //
-        // if (cargo == 2) {
-        // Gerente gerente = new Gerente("Victor", "dezoito", "vriosdantas@gmail.com",
-        // 99854776, 180305);
-        // System.out.println("---------GERENCIAMENTO DE ESTOQUE---------");
-        // System.out.println("Deseja remover algo do estoque?");
-        // System.out.println("1 - Celular");
-        // System.out.println("2 - Notebook");
-        // System.out.println("3 - Fone");
-        // System.out.println("x > 3 || x < 1 = NÃO");
-        // int numeroProduto = sc.nextInt();
-        // if(numeroProduto == 1){
-        // Produto celular = new Celular("celular", 2000.00, "Apple", "Celular de ultima
-        // geração", "iphone 15", "IOS 17", 560, 15.60);
-        // estoque.removerItem(celular);
-        // System.out.println("Celular removido com sucesso!");
-        // } else if(numeroProduto == 2){
-        // Produto notebook = new Notebook("Notebook", 4560.00, "Dell", "Descrição",
-        // "Ryzen 7", 16, 1, "Linux");
-        // estoque.removerItem(notebook);
-        // System.out.println("Notebook removido com sucesso!");
-        // } else if(numeroProduto == 3){
-        // Produto fone = new FoneDeOuvido("Fone", 60.00, "Xiaomi","Fone sem fio
-        // xiaomi", "Bluetooth", "Sem fio", true, "Branco");
-        // estoque.removerItem(fone);
-        // System.out.println("Fone removido com sucesso!");
-        // } else {
-        // System.out.println("");
-        // }
-
-        // } else if(cargo == 1){
-        // System.out.println("Digite seu saldo");
-        // double saldo = sc.nextDouble();
-        // Cliente cliente = new Cliente("Victor", "dezoito", "vriosdantas@gmail.com",
-        // 99854776 ,saldo);
-        // System.out.println("---------COMPRAS NA LOJA---------");
-        // System.out.println("Deseja remover algo do estoque?");
-        // System.out.println("1 - Celular");
-        // System.out.println("2 - Notebook");
-        // System.out.println("3 - Fone");
-        // System.out.println("x > 3 || x < 1 = NÃO");
-
-        // int numeroProduto = sc.nextInt();
-        // if(numeroProduto == 1){
-        // Produto celular = new Celular("celular", 2000.00, "Apple", "Celular de ultima
-        // geração", "iphone 15", "IOS 17", 560, 15.60);
-        // cliente.getCarrinho().removerItem(celular);
-        // System.out.println("Celular removido com sucesso!");
-        // } else if(numeroProduto == 2){
-        // Produto notebook = new Notebook("Notebook", 4560.00, "Dell", "Descrição",
-        // "Ryzen 7", 16, 1, "Linux");
-        // cliente.getCarrinho().removerItem(notebook);
-        // System.out.println("Notebook removido com sucesso!");
-        // } else if(numeroProduto == 3){
-        // Produto fone = new FoneDeOuvido("Fone", 60.00, "Xiaomi","Fone sem fio
-        // xiaomi", "Bluetooth", "Sem fio", true, "Branco");
-        // cliente.getCarrinho().removerItem(fone);
-        // System.out.println("Fone removido com sucesso!");
-        // } else {
-        // System.out.println("");
-        // }
-        // }
-
         sc.close();
     }
 }

@@ -14,6 +14,7 @@ public class Carrinho implements GerenciamentoItens {
     
     public Carrinho() {
         this.itensCarrinho = new ArrayList<>();
+        this.valorCarrinho = 0;
     }
 
     public List<Produto> getItensCarrinho() {
@@ -29,18 +30,28 @@ public class Carrinho implements GerenciamentoItens {
     }
 
     @Override
-    public void removerItem(Produto produto) {
-        quantidadeCarrinho--;
-        valorCarrinho -= produto.getPreco();
-        itensCarrinho.remove(produto);
-        System.out.println("Produto removido do carrinho: " + produto.getNome());
+    public void removerItem(int index) {
+        try {
+            if (index >= 0 && index < itensCarrinho.size()) {
+                Produto produtoRemovido = itensCarrinho.remove(index);
+                quantidadeCarrinho--;
+                valorCarrinho -= produtoRemovido.getPreco();
+                System.out.println("Produto removido do carrinho: " + produtoRemovido.getNome());
+            } else {
+                System.out.println("Índice inválido para remover o item do carrinho.");
+            }
+        } catch (EstoqueException e) {
+            if (itensCarrinho.isEmpty()) {
+                System.out.print("Carrinho já está " + e.getMessage());
+            }
+        }
     }
     
     public void mostrarCarrinho() {
         try {
             System.out.println("----SEU CARRINHO----");
             for (Produto produto : itensCarrinho) {
-                System.out.println(produto); // Isso imprimirá cada produto em uma linha separada
+                System.out.println( itensCarrinho.indexOf(produto) + " - " + produto ); // Isso imprimirá cada produto em uma linha separada
             }
             System.out.println("valor total: " + valorCarrinho );
         } catch (EstoqueException e) {
@@ -54,6 +65,14 @@ public class Carrinho implements GerenciamentoItens {
     public double getValorCarrinho() {
         return valorCarrinho;
     }
+
+    @Override
+    public String toString() {
+        return "Carrinho [itensCarrinho=" + itensCarrinho + ", quantidadeCarrinho=" + quantidadeCarrinho
+                + ", valorCarrinho=" + valorCarrinho + "]";
+    }
+
+    
 
 }
 

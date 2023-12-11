@@ -1,5 +1,6 @@
 package classesAbstratas;
 
+// nao é possivel instanciar um produto
 public abstract class Produto {
     protected String nome;
     protected double preco;

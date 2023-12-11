@@ -1,12 +1,10 @@
 package classesAbstratas;
 
-import java.time.LocalDate;
-
+//  nao posso instanciar um pagamento
 import geral.StatusPagamento;
 
 public abstract class Pagamento {
     protected double valor;
-    protected LocalDate data;
     protected StatusPagamento statusPagamento;
 
     public Pagamento(double valor) {
@@ -17,4 +15,11 @@ public abstract class Pagamento {
     public abstract void solicitarPagamento();
 
     public abstract void efetuarPagamento();
+
+    @Override
+    public String toString() {
+        return "Pagamento [valor=" + valor + ", statusPagamento=" + statusPagamento + "]";
+    }
+
+    
 }

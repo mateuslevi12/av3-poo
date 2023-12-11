@@ -1,6 +1,6 @@
 package classesAbstratas;
 
-
+// não é possivel instanciar uma pessoa
 public abstract class Pessoa {
     protected String nome;
     protected int idade;
