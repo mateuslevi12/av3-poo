@@ -38,7 +38,7 @@ public class Estoque implements GerenciamentoItens {
         } catch (EstoqueException e) {
             if (itensEstoque.isEmpty()) {
                 System.out.print("Estoque já está " + e.getMessage());
-            }
+            } 
         }
     }
     public void mostrarEstoque() throws EstoqueException {
@@ -46,7 +46,7 @@ public class Estoque implements GerenciamentoItens {
             if (!itensEstoque.isEmpty()) {
                 System.out.println("ESTOQUE");
                 for (Produto produto : itensEstoque) {
-                    System.out.println(produto);
+                    System.out.println( itensEstoque.indexOf(produto) + " - " + produto );
                 }
             } 
         } catch (EstoqueException e) {

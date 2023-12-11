@@ -3,7 +3,6 @@ package leituraEscrita;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import classesAbstratas.Produto;
 import geral.*;
 import interfaces.GerenciamentoNotaFiscal;

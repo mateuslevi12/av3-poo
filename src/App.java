@@ -6,6 +6,7 @@ import geral.Cliente;
 import geral.Estoque;
 import geral.FoneDeOuvido;
 import leituraEscrita.LeituraEstoque;
+import leituraEscrita.EscritaEstoque;
 import leituraEscrita.EscritaNotaFiscal;
 import geral.Notebook;
 import geral.Pix;
@@ -60,100 +61,113 @@ public class App {
             int Escolha = sc.nextInt();
             System.out.println("");
 
-            while (Escolha == 1) {
-                System.out.println("----ADIÇÃO DE ITENS----");
-                System.out.println("Selecione o produto que deseja adicionar");
-                System.out.println("1 - Celular");
-                System.out.println("2 - Notebook");
-                System.out.println("3 - Fone De Ouvido");
-                int escolha = sc.nextInt();
+            boolean finalizar = false;
 
-                if (escolha == 1) {
-                    System.out.print("Digite o nome do celular: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do celular: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    Celular celular = new Celular(nomeProd, valorC, marca, memoria);
-                    cliente.getCarrinho().adicionarItem(celular);
-                }
+            while (!finalizar) {
+                while (Escolha == 1) {
+                    System.out.println("----ADIÇÃO DE ITENS----");
+                    System.out.println("Selecione o produto que deseja adicionar");
+                    System.out.println("1 - Celular");
+                    System.out.println("2 - Notebook");
+                    System.out.println("3 - Fone De Ouvido");
+                    int escolha = sc.nextInt();
 
-                else if (escolha == 2) {
-                    System.out.print("Digite o nome do notebook: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do notebook: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
-                    cliente.getCarrinho().adicionarItem(notebook);
-                }
-
-                else if (escolha == 3) {
-                    System.out.print("Digite o nome do fone: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do fone: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
-                    cliente.getCarrinho().adicionarItem(fone);
-                }
-                System.out.println("Deseja adicionar outro item ? \n (1 - Sim /2 - Nao /3 - Remover)");
-                System.out.print("Digite a operação desejada: ");
-                Escolha = sc.nextInt();
-            }
-
-            while (Escolha == 3) {
-                System.out.println("-------------REMOÇÃO DE ITEM-------------");
-                System.out.println("");
-                cliente.getCarrinho().mostrarCarrinho();
-                System.out.println("Escolha o numero do produto a ser removido");
-                int index = sc.nextInt();
-                cliente.getCarrinho().removerItem(index);
-                cliente.getCarrinho().mostrarCarrinho();
-                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
-                Escolha = sc.nextInt();
-            }
-
-            if (Escolha == 2) {
-                System.out.println("----PAGAMENTO----");
-                cliente.getCarrinho().mostrarCarrinho();
-
-                System.out.println("Selecione a forma de pagamento");
-                System.out.println("1 - Cartão de Credito");
-                System.out.println("2 - PIX");
-                int escolha = sc.nextInt();
-                if (escolha == 1) {
-                    if (saldo < cliente.getCarrinho().getValorCarrinho()) {
-                        sc.close();
-                        throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
+                    if (escolha == 1) {
+                        System.out.print("Digite o nome do celular: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do celular: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        Celular celular = new Celular(nomeProd, valorC, marca, memoria);
+                        cliente.getCarrinho().adicionarItem(celular);
                     }
-                    System.out.print("Insira sua senha: ");
-                    int senha = sc.nextInt();
-                    Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho(), senha, cliente);
-                    cartao.solicitarPagamento();
-                    Thread.sleep(3000);
-                    cartao.efetuarPagamento();
-                    System.out.println("Nota fiscal emitida com sucesso!!!");
-                    EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
-                    String fileNameOut = "notaFiscal.txt";
 
-                    escrita.efetuaEscrita(fileNameOut);
+                    else if (escolha == 2) {
+                        System.out.print("Digite o nome do notebook: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do notebook: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
+                        cliente.getCarrinho().adicionarItem(notebook);
+                    }
 
-                } else if (escolha == 2) {
-                    Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho(), cliente);
-                    pix.solicitarPagamento();
-                    Thread.sleep(3000);
-                    pix.efetuarPagamento();
-                    System.out.println("Nota fiscal emitida com sucesso!!!");
-                    EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
-                    String fileNameOut = "notaFiscal.txt";
-
-                    escrita.efetuaEscrita(fileNameOut);
+                    else if (escolha == 3) {
+                        System.out.print("Digite o nome do fone: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do fone: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
+                        cliente.getCarrinho().adicionarItem(fone);
+                    }
+                    System.out.println("O que deseja fazer agora?\n(1 - Adicionar /2 - Finalizar /3 - Remover)");
+                    System.out.print("Digite a operação desejada: ");
+                    Escolha = sc.nextInt();
+                    if (Escolha == 2) {
+                        finalizar = true;
+                    }
                 }
+
+                while (Escolha == 3) {
+                    System.out.println("-------------REMOÇÃO DE ITEM-------------");
+                    System.out.println("");
+                    cliente.getCarrinho().mostrarCarrinho();
+                    System.out.println("Escolha o numero do produto a ser removido");
+                    int index = sc.nextInt();
+                    cliente.getCarrinho().removerItem(index);
+                    cliente.getCarrinho().mostrarCarrinho();
+                    System.out.println("O que deseja fazer agora?\n(1 - Adicionar /2 - Finalizar /3 - Remover)");
+                    System.out.print("Digite a operação desejada: ");
+                    Escolha = sc.nextInt();
+                    if (Escolha == 2) {
+                        finalizar = true;
+                    }
+                }
+
             }
+
+            System.out.println("---------------------------------");
+            System.out.println("-------------PAGAMENTO-----------");
+            System.out.println("---------------------------------");
+            cliente.getCarrinho().mostrarCarrinho();
+
+            System.out.println("Selecione a forma de pagamento");
+            System.out.println("1 - Cartão de Credito");
+            System.out.println("2 - PIX");
+            int escolha = sc.nextInt();
+            if (escolha == 1) {
+                if (saldo < cliente.getCarrinho().getValorCarrinho()) {
+                    sc.close();
+                    throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
+                }
+                System.out.print("Insira sua senha: ");
+                int senha = sc.nextInt();
+                Cartao cartao = new Cartao(cliente.getCarrinho().getValorCarrinho(), senha, cliente);
+                cartao.solicitarPagamento();
+                Thread.sleep(3000);
+                cartao.efetuarPagamento();
+                System.out.println("Nota fiscal emitida com sucesso!!!");
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
+                String fileNameOut = "notaFiscal.txt";
+
+                escrita.efetuaEscrita(fileNameOut);
+
+            } else if (escolha == 2) {
+                Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho(), cliente);
+                pix.solicitarPagamento();
+                Thread.sleep(3000);
+                pix.efetuarPagamento();
+                System.out.println("Nota fiscal emitida com sucesso!!!");
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
+                String fileNameOut = "notaFiscal.txt";
+
+                escrita.efetuaEscrita(fileNameOut);
+            }
+
         } else if (opcao == 2) {
             System.out.println("-------------------------------------------------------------------");
             System.out.println("------Seja bem vido ao gerenciamento do estoque da MV IMPORTS------");
@@ -210,8 +224,10 @@ public class App {
                     estoque.adicionarItem(fone);
                 }
                 estoque.mostrarEstoque();
+                EscritaEstoque escrita = new EscritaEstoque();
+                escrita.escreverEstoque(estoque.getItensEstoque(), name);
 
-                System.out.println("Deseja adicionar outro item ?\n(1 - Sim /2 - Remover)");
+                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
                 System.out.print("Digite a operação desejada: ");
                 escolhendo = sc.nextInt();
             }
@@ -228,7 +244,11 @@ public class App {
                 escolhendo = sc.nextInt();
 
             }
-            
+            if (escolhendo == 3) {
+                estoque.mostrarEstoque();
+                EscritaEstoque escrita = new EscritaEstoque();
+                escrita.escreverEstoque(estoque.getItensEstoque(), name);
+            }
 
         }
         sc.close();
