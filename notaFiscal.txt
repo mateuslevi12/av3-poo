@@ -4,9 +4,11 @@ NOME DO CLIENTE: mateus
 EMAIL DO CLIENTE: mateuslevi@gmail.com
 
 --------PRODUTOS--------
+item: apple iphone12 | valor: 2000.00
 item: lenovo ideaped3 | valor: 4000.00
+item:  qcy t13 | valor: 400.00
 
 --------PAGAMENTO--------
-Valor Final dos Produtos: 4000.0
+Valor Final dos Produtos: 6400.0
 
-Valor Final Pago: 4800.0
+Valor Final Pago: 5120.0

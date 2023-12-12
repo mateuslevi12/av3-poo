@@ -18,7 +18,7 @@ public class App {
 
         String name = "C:\\Users\\mateu\\Downloads\\(1)programas\\estoque.txt";
         LeituraEstoque leitura = new LeituraEstoque();
-        leitura.efeituarLeritura(name);
+        leitura.leituraOuEscrita(name);
         estoque.setItensEstoque(leitura.getItensEstoque());
         // boolean parar;
 
@@ -154,7 +154,7 @@ public class App {
                 EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente, cliente.getCarrinho().getValorCarrinho() * 1.2);
                 String fileNameOut = "notaFiscal.txt";
 
-                escrita.efetuaEscrita(fileNameOut);
+                escrita.leituraOuEscrita(fileNameOut);
 
             } else if (escolha == 2) {
                 Pix pix = new Pix(cliente.getCarrinho().getValorCarrinho(), cliente);
@@ -165,7 +165,7 @@ public class App {
                 EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente, cliente.getCarrinho().getValorCarrinho() * 0.8 );
                 String fileNameOut = "notaFiscal.txt";
 
-                escrita.efetuaEscrita(fileNameOut);
+                escrita.leituraOuEscrita(fileNameOut);
             }
 
         } else if (opcao == 2) {
