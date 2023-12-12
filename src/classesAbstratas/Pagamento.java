@@ -19,6 +19,4 @@ public abstract class Pagamento {
     public String toString() {
         return "Pagamento [valor=" + valor + ", statusPagamento=" + statusPagamento + "]";
     }
-
-    
 }

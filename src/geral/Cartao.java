@@ -6,6 +6,11 @@ import excecao.SaldoInsuficienteException;
 public class Cartao extends Pagamento {
     private int senha;
     private Cliente cliente;
+    private double valorFinal;
+
+    public double getValorFinal() {
+        return valorFinal;
+    }
 
     public Cartao(double valor, int senha, Cliente cliente) {
         super(valor * 1.2);
@@ -19,6 +24,7 @@ public class Cartao extends Pagamento {
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar a compra");
         }
         System.out.println("Valor a pagar: " + valor);
+        valorFinal = valor;
     }
 
     @Override

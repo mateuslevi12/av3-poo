@@ -27,6 +27,7 @@ public class LeituraEstoque {
         File f = new File(filename);
         Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(f);
+        
         while (sc.hasNextLine()){
              String produto = sc.next();
              if(produto.equals("celular")){
@@ -59,4 +60,10 @@ public class LeituraEstoque {
         sc.close();
     }
 
+    @Override
+    public String toString() {
+        return "LeituraEstoque [itensEstoque=" + itensEstoque + "]";
+    }
+
+    
 }

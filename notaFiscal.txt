@@ -1,8 +1,12 @@
 --------NOTA FISCAL--------
 
-NOME DO CLIENTE :mateus
-EMAIL DO CLIENTE :aaa
+NOME DO CLIENTE: mateus
+EMAIL DO CLIENTE: mateuslevi@gmail.com
 
 --------PRODUTOS--------
-item:iphone12 | valor: 2000.00
-valor final: 2000.0
+item: lenovo ideaped3 | valor: 4000.00
+
+--------PAGAMENTO--------
+Valor Final dos Produtos: 4000.0
+
+Valor Final Pago: 4800.0

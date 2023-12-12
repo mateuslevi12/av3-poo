@@ -18,6 +18,5 @@ public class FoneDeOuvido extends Produto{
     public String getTipo() {
         return tipo;
     }
-
-    
+   
 }

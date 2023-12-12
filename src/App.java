@@ -31,7 +31,7 @@ public class App {
         String tipo = "semFio";
 
         System.out.println("Seja bem vindo a MV imports!");
-        System.out.println("Cliente = 1/ Gerente = 2 ?");
+        System.out.println("Cliente = 1/ Funcionario = 2 ?");
         int opcao = sc.nextInt();
 
         if (opcao == 1) {
@@ -151,7 +151,7 @@ public class App {
                 Thread.sleep(3000);
                 cartao.efetuarPagamento();
                 System.out.println("Nota fiscal emitida com sucesso!!!");
-                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente, cliente.getCarrinho().getValorCarrinho() * 1.2);
                 String fileNameOut = "notaFiscal.txt";
 
                 escrita.efetuaEscrita(fileNameOut);
@@ -162,7 +162,7 @@ public class App {
                 Thread.sleep(3000);
                 pix.efetuarPagamento();
                 System.out.println("Nota fiscal emitida com sucesso!!!");
-                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente);
+                EscritaNotaFiscal escrita = new EscritaNotaFiscal(cliente.getCarrinho(), cliente, cliente.getCarrinho().getValorCarrinho() * 0.8 );
                 String fileNameOut = "notaFiscal.txt";
 
                 escrita.efetuaEscrita(fileNameOut);
@@ -172,6 +172,7 @@ public class App {
             System.out.println("-------------------------------------------------------------------");
             System.out.println("------Seja bem vido ao gerenciamento do estoque da MV IMPORTS------");
             System.out.println("-------------------------------------------------------------------");
+            System.out.println("");
             estoque.mostrarEstoque();
             System.out.println("O que deseja fazer no estoque?");
             System.out.println("1 - Adicionar item");
@@ -180,75 +181,89 @@ public class App {
             System.out.println("Selecione a opção: ");
             int escolhendo = sc.nextInt();
 
-            while (escolhendo == 1) {
-                System.out.println("------ADIÇÃO DE ITENS AO ESTOQUE------");
-                System.out.println("");
-                System.out.println("Qual dos itens abaixo quer adicionar?");
-                System.out.println("1 - Celular");
-                System.out.println("2 - Notebook");
-                System.out.println("3 - Fone De Ouvido");
-                System.out.println("");
-                System.out.println("Selecione a opção: ");
-                int escolhaProd = sc.nextInt();
+            boolean finalizar = false;
+            while (!finalizar) {
+                while (escolhendo == 1) {
+                    System.out.println("------ADIÇÃO DE ITENS AO ESTOQUE------");
+                    System.out.println("");
+                    System.out.println("Qual dos itens abaixo quer adicionar?");
+                    System.out.println("1 - Celular");
+                    System.out.println("2 - Notebook");
+                    System.out.println("3 - Fone De Ouvido");
+                    System.out.println("");
+                    System.out.println("Selecione a opção: ");
+                    int escolhaProd = sc.nextInt();
 
-                if (escolhaProd == 1) {
-                    System.out.print("Digite o nome do celular: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do celular: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    Celular celular = new Celular(nomeProd, valorC, marca, memoria);
-                    estoque.adicionarItem(celular);
+                    if (escolhaProd == 1) {
+                        System.out.print("Digite o nome do celular: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do celular: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        Celular celular = new Celular(nomeProd, valorC, marca, memoria);
+                        estoque.adicionarItem(celular);
+                    }
+
+                    else if (escolhaProd == 2) {
+                        System.out.print("Digite o nome do notebook: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do notebook: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
+                        estoque.adicionarItem(notebook);
+                    }
+
+                    else if (escolhaProd == 3) {
+                        System.out.print("Digite o nome do fone: ");
+                        String nomeProd = sc.next();
+                        sc.nextLine();
+                        System.out.print("Digite a marca do fone: ");
+                        String marca = sc.next();
+                        sc.nextLine();
+                        FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
+                        estoque.adicionarItem(fone);
+                    }
+                    System.out.println("");
+                    estoque.mostrarEstoque();
+
+                    System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Remover item /3 - Finalizar)");
+                    System.out.println("");
+                    System.out.print("Digite a operação desejada: ");
+                    escolhendo = sc.nextInt();
+                    if (escolhendo == 3) {
+                        finalizar = true;
+                    }
+                }
+                while (escolhendo == 2) {
+                    System.out.println("------REMOÇÃO DE ITENS DO ESTOQUE------");
+                    System.out.println("");
+                    estoque.mostrarEstoque();
+                    System.out.println("");
+                    System.out.println("Escolha o numero do produto a ser removido");
+                    int index = sc.nextInt();
+                    estoque.removerItem(index);
+
+                    System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Remover item /3 - Finalizar)");
+                    System.out.print("Digite a operação desejada: ");
+                    escolhendo = sc.nextInt();
+
+                    if (escolhendo == 3) {
+                        finalizar = true;
+                    }
                 }
 
-                else if (escolhaProd == 2) {
-                    System.out.print("Digite o nome do notebook: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do notebook: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    Notebook notebook = new Notebook(nomeProd, valorN, marca, tela);
-                    estoque.adicionarItem(notebook);
-                }
-
-                else if (escolhaProd == 3) {
-                    System.out.print("Digite o nome do fone: ");
-                    String nomeProd = sc.next();
-                    sc.nextLine();
-                    System.out.print("Digite a marca do fone: ");
-                    String marca = sc.next();
-                    sc.nextLine();
-                    FoneDeOuvido fone = new FoneDeOuvido(nomeProd, valorF, marca, tipo);
-                    estoque.adicionarItem(fone);
-                }
-                estoque.mostrarEstoque();
-                EscritaEstoque escrita = new EscritaEstoque();
-                escrita.escreverEstoque(estoque.getItensEstoque(), name);
-
-                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
-                System.out.print("Digite a operação desejada: ");
-                escolhendo = sc.nextInt();
             }
-            while (escolhendo == 2) {
-                System.out.println("------REMOÇÃO DE ITENS DO ESTOQUE------");
-                System.out.println("");
-                estoque.mostrarEstoque();
-                System.out.println("");
-                System.out.println("Escolha o numero do produto a ser removido");
-                int index = sc.nextInt();
-                estoque.removerItem(index);
-                estoque.mostrarEstoque();
-                System.out.print("O que deseja fazer? \n (1 - Adicionar item /2 - Finalizar Pedido /3 - Remover item)");
-                escolhendo = sc.nextInt();
 
-            }
-            if (escolhendo == 3) {
-                estoque.mostrarEstoque();
-                EscritaEstoque escrita = new EscritaEstoque();
-                escrita.escreverEstoque(estoque.getItensEstoque(), name);
-            }
+            System.out.println("");
+            System.out.println("---------EDIÇÃO FINALIZADA---------");
+            System.out.println("");
+
+            estoque.mostrarEstoque();
+            EscritaEstoque escrita = new EscritaEstoque();
+            escrita.escreverEstoque(estoque.getItensEstoque(), name);
 
         }
         sc.close();

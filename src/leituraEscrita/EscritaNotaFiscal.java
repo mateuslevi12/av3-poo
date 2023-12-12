@@ -10,11 +10,14 @@ import interfaces.GerenciamentoNotaFiscal;
 public class EscritaNotaFiscal extends Carrinho implements GerenciamentoNotaFiscal{
     private Carrinho carrinho;
     private Cliente cliente;
+    private double valorFinal;
 
-    public EscritaNotaFiscal(Carrinho carrinho, Cliente cliente) {
+    public EscritaNotaFiscal(Carrinho carrinho, Cliente cliente, double valorFinal) {
         this.carrinho = carrinho;
         this.cliente = cliente;
+        this.valorFinal = valorFinal;;
     }
+
 
     @Override
     public void efetuaEscrita(String filename) throws IOException {
@@ -22,9 +25,9 @@ public class EscritaNotaFiscal extends Carrinho implements GerenciamentoNotaFisc
         FileWriter fw = new FileWriter(f);
         fw.write("--------NOTA FISCAL--------\n");
         fw.write("\n");
-        fw.write("NOME DO CLIENTE :" + cliente.getNome());
+        fw.write("NOME DO CLIENTE: " + cliente.getNome());
         fw.write("\n");
-        fw.write("EMAIL DO CLIENTE :" + cliente.getEmail());
+        fw.write("EMAIL DO CLIENTE: " + cliente.getEmail());
         fw.write("\n");
         fw.write("\n");
 
@@ -33,17 +36,29 @@ public class EscritaNotaFiscal extends Carrinho implements GerenciamentoNotaFisc
             Produto produto = carrinho.getItensCarrinho().get(i);
             if (produto instanceof Celular) {
                 Celular celular = (Celular) produto;
-                fw.write("item:" + celular.getNome() + " | valor: 2000.00\n");
+                fw.write("item: " + celular.getMarca() + " " + celular.getNome() + " | valor: 2000.00\n");
             } else if (produto instanceof Notebook) {
                 Notebook notebook = (Notebook) produto;
-                fw.write("item:" + notebook.getNome() + " | valor: 4000.00\n");
+                fw.write("item: " + notebook.getMarca()+ " " + notebook.getNome() + " | valor: 4000.00\n");
             } else if (produto instanceof FoneDeOuvido) {
                 FoneDeOuvido fone = (FoneDeOuvido) produto;
-                fw.write("item: " + fone.getNome() + " | valor: 400.00\n");
+                fw.write("item:  " + fone.getMarca() + " " + fone.getNome() + " | valor: 400.00\n");
             }
-            fw.write("valor final: " + cliente.getCarrinho().getValorCarrinho());
         }
+         fw.write("\n--------PAGAMENTO--------");
+        fw.write("\nValor Final dos Produtos: " + cliente.getCarrinho().getValorCarrinho());
         fw.write("\n");
+        fw.write("\nValor Final Pago: " + valorFinal);
+        
+
         fw.close();
     }
+
+    @Override
+    public String toString() {
+        return "EscritaNotaFiscal [carrinho=" + carrinho + ", cliente=" + cliente + "]";
+    }
+
+
+    
 }

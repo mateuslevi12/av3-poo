@@ -19,7 +19,4 @@ public class Notebook extends Produto {
     public String toString() {
         return "Notebook";
     }
-
-    
-    
 }

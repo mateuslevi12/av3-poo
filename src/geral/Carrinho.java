@@ -10,7 +10,6 @@ import interfaces.GerenciamentoItens;
 
 public class Carrinho implements GerenciamentoItens {
     private List<Produto> itensCarrinho;
-    private int quantidadeCarrinho;
     private double valorCarrinho;
     
     public Carrinho() {
@@ -24,7 +23,6 @@ public class Carrinho implements GerenciamentoItens {
 
     @Override
     public void adicionarItem(Produto produto) {
-        quantidadeCarrinho++;
         valorCarrinho += produto.getPreco();
         itensCarrinho.add(produto);
         System.out.println(produto.getNome() + " adicionado com sucesso!!" );
@@ -35,7 +33,6 @@ public class Carrinho implements GerenciamentoItens {
         try {
             if (index >= 0 && index < itensCarrinho.size()) {
                 Produto produtoRemovido = itensCarrinho.remove(index);
-                quantidadeCarrinho--;
                 valorCarrinho -= produtoRemovido.getPreco();
                 System.out.println("Produto removido do carrinho: " + produtoRemovido.getNome());
             } else {
@@ -52,7 +49,7 @@ public class Carrinho implements GerenciamentoItens {
         try {
             System.out.println("----SEU CARRINHO----");
             for (Produto produto : itensCarrinho) {
-                System.out.println( itensCarrinho.indexOf(produto) + " - " + produto ); // Isso imprimirá cada produto em uma linha separada
+                System.out.println( itensCarrinho.indexOf(produto) + " - " + produto ); 
             }
             System.out.println("valor total: " + valorCarrinho );
         } catch (EstoqueException e) {
@@ -60,7 +57,6 @@ public class Carrinho implements GerenciamentoItens {
                 System.out.print("Carrinho" + e.getMessage());
             }
         }
-        
     }
     
     public double getValorCarrinho() {
@@ -69,8 +65,7 @@ public class Carrinho implements GerenciamentoItens {
 
     @Override
     public String toString() {
-        return "Carrinho [itensCarrinho=" + itensCarrinho + ", quantidadeCarrinho=" + quantidadeCarrinho
-                + ", valorCarrinho=" + valorCarrinho + "]";
+        return "Carrinho [itensCarrinho=" + itensCarrinho + ", valorCarrinho=" + valorCarrinho + "]";
     }
 
     

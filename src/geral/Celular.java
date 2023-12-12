@@ -3,7 +3,6 @@ package geral;
 import classesAbstratas.Produto;
 
 public class Celular extends Produto {
-
     private double memoria;
 
     public double getMemoria() {

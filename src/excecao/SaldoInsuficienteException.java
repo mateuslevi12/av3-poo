@@ -11,6 +11,4 @@ public class SaldoInsuficienteException extends RuntimeException{
     public String toString() {
         return "SaldoInsuficienteException []";
     }
-
-    
 }

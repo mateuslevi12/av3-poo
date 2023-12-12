@@ -3,6 +3,7 @@ package geral;
 import classesAbstratas.Pessoa;
 
 public class Cliente extends Pessoa{
+
     private Carrinho carrinho = new Carrinho();
     private double saldo;
 
@@ -14,10 +15,6 @@ public class Cliente extends Pessoa{
     public double getSaldo() {
         return saldo;
     }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    } 
 
     @Override
     public String toString() {

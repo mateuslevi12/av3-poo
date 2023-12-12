@@ -5,6 +5,7 @@ import excecao.SaldoInsuficienteException;
 
 public class Pix extends Pagamento{
     private Cliente cliente;
+    private double valorFinal;
 
     public Pix(double valor, Cliente cliente) {
         super(valor * 0.8);
@@ -18,6 +19,7 @@ public class Pix extends Pagamento{
         }
         System.out.println("Chave pix: 123456789");
         System.out.println("Valor a pagar: " + valor);
+        valorFinal = valor;
     }
 
     @Override
@@ -30,6 +32,10 @@ public class Pix extends Pagamento{
     public String toString() {
         return "Pix";
     }
-    
+
+    public double getValorFinal() {
+        return valorFinal;
+    }
+
     
 }
