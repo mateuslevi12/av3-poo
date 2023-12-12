@@ -5,9 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import classesAbstratas.Produto;
 import geral.*;
-import interfaces.GerenciamentoNotaFiscal;
+import interfaces.LerEscrever;
 
-public class EscritaNotaFiscal extends Carrinho implements GerenciamentoNotaFiscal{
+public class EscritaNotaFiscal extends Carrinho implements LerEscrever{
     private Carrinho carrinho;
     private Cliente cliente;
     private double valorFinal;
@@ -20,7 +20,7 @@ public class EscritaNotaFiscal extends Carrinho implements GerenciamentoNotaFisc
 
 
     @Override
-    public void efetuaEscrita(String filename) throws IOException {
+    public void leituraOuEscrita(String filename) throws IOException {
         File f = new File(filename);
         FileWriter fw = new FileWriter(f);
         fw.write("--------NOTA FISCAL--------\n");

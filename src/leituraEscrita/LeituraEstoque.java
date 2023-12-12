@@ -6,12 +6,13 @@ import java.util.Scanner;
 
 import classesAbstratas.Produto;
 import geral.*;
+import interfaces.LerEscrever;
 
 import java.util.Locale;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class LeituraEstoque {
+public class LeituraEstoque implements LerEscrever {
     private List<Produto> itensEstoque;
 
     public LeituraEstoque() {
@@ -22,7 +23,8 @@ public class LeituraEstoque {
         return itensEstoque;
     }
 
-    public void efeituarLeritura(String filename) throws FileNotFoundException {
+    @Override  
+    public void leituraOuEscrita(String filename) throws FileNotFoundException {
         
         File f = new File(filename);
         Locale.setDefault(Locale.US);

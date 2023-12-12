@@ -47,6 +47,7 @@ public class Estoque implements GerenciamentoItens {
                 System.out.println("ESTOQUE");
                 for (Produto produto : itensEstoque) {
                     System.out.println( itensEstoque.indexOf(produto) + " - " + produto );
+                    
                 }
             } 
         } catch (EstoqueException e) {
